@@ -7,6 +7,9 @@
 
 
 
+int game_running = 1;
+
+
 char board[3][3] =
 	{
 	{' ', ' ', ' '},
@@ -27,7 +30,6 @@ void print_board()
 /* player 1 goes first and holds the X pieces */
 void player_1_turn()
 {
-	print_board();
 
 	int column_choice;
 	int row_choice;
@@ -61,13 +63,13 @@ void player_1_turn()
 	// place piece on board
 	board[row_choice][column_choice] = 'X';
 
+        system("clear");
 };
 
 
 /* player 2 goes first and holds the O pieces */
 void player_2_turn()
 {
-        print_board();
 
         int column_choice;
         int row_choice;
@@ -101,17 +103,135 @@ void player_2_turn()
         // place piece on board
         board[row_choice][column_choice] = 'O';
 
+	system("clear");
 };
+
+
+void check_if_player_1_wins()
+{
+	// left to right 3 in a row check
+	if(board[0][0] == 'X' && board[0][1] == 'X' && board[0][2] == 'X')
+	{
+		game_running = 0;
+		printf("Player 1 wins\n");
+
+	} else if(board[1][0] == 'X' && board[1][1] == 'X' && board[1][2] == 'X')
+	{
+                game_running = 0;
+		printf("Player 1 wins\n");
+
+	} else if(board[2][0] == 'X' && board[2][1] == 'X' && board[2][2] == 'X')
+        {
+                game_running = 0;
+		printf("Player 1 wins\n");
+
+	// top to bottom 3 in a row check
+	} else if(board[0][0] == 'X' && board[1][0] == 'X' && board[2][0] == 'X')
+	{
+                game_running = 0;
+		printf("Player 1 wins\n");
+
+	} else if(board[0][1] == 'X' && board[1][1] == 'X' && board[2][1] == 'X')
+        {
+                game_running = 0;
+                printf("Player 1 wins\n");
+
+        } else if(board[0][2] == 'X' && board[1][2] == 'X' && board[2][2] == 'X')
+        {
+                game_running = 0;
+                printf("Player 1 wins\n");
+
+	// diagonal 3 in a row check
+	} else if(board[0][0] == 'X' && board[1][1] == 'X' && board[2][2] == 'X')
+        {
+                game_running = 0;
+                printf("Player 1 wins\n");
+
+
+	} else if(board[0][2] == 'X' && board[1][1] == 'X' && board[2][0] == 'X')
+        {
+                game_running = 0;
+                printf("Player 1 wins\n");
+
+	}; // end of if
+};// end of check for winner
+
+
+void check_if_player_2_wins()
+{
+        // left to right 3 in a row check
+        if(board[0][0] == 'O' && board[0][1] == 'O' && board[0][2] == 'O')
+        {
+                game_running = 0;
+                printf("Player 2 wins\n");
+
+        } else if(board[1][0] == 'O' && board[1][1] == 'O' && board[1][2] == 'O')
+        {
+                game_running = 0;
+                printf("Player 2 wins\n");
+
+        } else if(board[2][0] == 'O' && board[2][1] == 'O' && board[2][2] == 'O')
+        {
+                game_running = 0;
+                printf("Player 2 wins\n");
+
+        // top to bottom 3 in a row check
+        } else if(board[0][0] == 'O' && board[1][0] == 'O' && board[2][0] == 'O')
+        {
+                game_running = 0;
+                printf("Player 2 wins\n");
+
+        } else if(board[0][1] == 'O' && board[1][1] == 'O' && board[2][1] == 'O')
+        {
+                game_running = 0;
+                printf("Player 2 wins\n");
+
+        } else if(board[0][2] == 'O' && board[1][2] == 'O' && board[2][2] == 'O')
+        {
+                game_running = 0;
+                printf("Player 2 wins\n");
+
+        // diagonal 3 in a row check
+        } else if(board[0][0] == 'O' && board[1][1] == 'O' && board[2][2] == 'O')
+        {
+                game_running = 0;
+                printf("Player 2 wins\n");
+
+        } else if(board[0][2] == 'O' && board[1][1] == 'O' && board[2][0] == 'O')
+        {
+                game_running = 0;
+                printf("Player 2 wins\n");
+
+        }; // end of if
+};// end of check if player 2 wins
 
 
 
 int main()
 {
-	player_1_turn();
+	while(game_running)
+	{
+		system("clear");
+		print_board();
 
-	print_board();
+		player_1_turn();
 
-	player_2_turn();
+		print_board();
 
-	print_board();
+		check_if_player_1_wins();
+
+		if(game_running == 0)
+		{
+			continue;
+
+		}; // end of if
+
+		player_2_turn();
+
+		print_board();
+
+		check_if_player_2_wins();
+	}; // end of while loop
+
+	printf("\nGAME OVER\n");
 }; // end of main
